@@ -587,6 +587,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                }
 	            }
 
+	            mappedData.rowNumber = this.getCurrentPage() * this.state.resultsPerPage + i + 1;
 	            transformedData.push(mappedData);
 	        }
 	        return transformedData;

@@ -325,7 +325,7 @@ var Griddle = React.createClass({
         //     this.props.externalChangeSort(sort, this.props.externalSortColumn === sort ? !this.props.externalSortAscending : true);
         //     return;
         // }
-        
+
         //externalChangeSort now just returns current sort state
         if(this.props.externalChangeSort) {
           this.props.externalChangeSort(sort, this.state.sortColumn == sort ? !this.state.sortAscending : true);
@@ -531,6 +531,7 @@ var Griddle = React.createClass({
                 if(that.props.childrenColumnName !== "children") { delete mappedData[that.props.childrenColumnName]; }
             }
 
+            mappedData.rowNumber = this.getCurrentPage() * this.state.resultsPerPage + i + 1;
             transformedData.push(mappedData);
         }
         return transformedData;
