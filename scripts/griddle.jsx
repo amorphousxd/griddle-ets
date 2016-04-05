@@ -321,10 +321,16 @@ var Griddle = React.createClass({
     },
     changeSort: function(sort){
         if(this.props.enableSort === false){ return; }
-        if(this.props.useExternal) {
-            this.props.externalChangeSort(sort, this.props.externalSortColumn === sort ? !this.props.externalSortAscending : true);
-            return;
+        // if(this.props.useExternal) {
+        //     this.props.externalChangeSort(sort, this.props.externalSortColumn === sort ? !this.props.externalSortAscending : true);
+        //     return;
+        // }
+        
+        //externalChangeSort now just returns current sort state
+        if(this.props.externalChangeSort) {
+          this.props.externalChangeSort(sort, this.state.sortColumn == sort ? !this.state.sortAscending : true);
         }
+
 
         var that = this,
             state = {
