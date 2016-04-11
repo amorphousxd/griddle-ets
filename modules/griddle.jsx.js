@@ -125,6 +125,7 @@ var Griddle = React.createClass({
             "isSubGriddle": false,
             "enableSort": true,
             "onRowClick": null,
+            "onKeyPress": null,
             /* css class names */
             "sortAscendingClassName": "sort-ascending",
             "sortDescendingClassName": "sort-descending",
@@ -793,6 +794,12 @@ var Griddle = React.createClass({
     shouldShowNoDataSection: function shouldShowNoDataSection(results) {
         return this.props.useExternal === false && (typeof results === 'undefined' || results.length === 0) || this.props.useExternal === true && this.props.externalIsLoading === false && results.length === 0;
     },
+    onKeyPress: function onKeyPress(data, e) {
+      e.preventDefault();
+      if (typeof this.props.onKeyPress === 'function') {
+        this.props.onKeyPress(data, e.keyCode);
+      }
+    },
     render: function render() {
         var that = this,
             results = this.getCurrentResults(); // Attempt to assign to the filtered results, if we have any.
@@ -838,7 +845,7 @@ var Griddle = React.createClass({
         //add custom to the class name so we can style it differently
         gridClassName += this.props.useCustomRowComponent ? " griddle-custom" : "";
 
-        return React.createElement('div', { className: gridClassName }, topSection, columnSelector, React.createElement('div', { className: 'griddle-container', style: this.props.useGriddleStyles && !this.props.isSubGriddle ? { border: "1px solid #DDD" } : null }, resultContent));
+        return React.createElement('div', { className: gridClassName, tabIndex: '2', onKeyDown: this.onKeyPress.bind(this, data) }, topSection, columnSelector, React.createElement('div', { className: 'griddle-container', style: this.props.useGriddleStyles && !this.props.isSubGriddle ? { border: "1px solid #DDD" } : null }, resultContent));
     }
 });
 
