@@ -795,9 +795,8 @@ var Griddle = React.createClass({
         return this.props.useExternal === false && (typeof results === 'undefined' || results.length === 0) || this.props.useExternal === true && this.props.externalIsLoading === false && results.length === 0;
     },
     onKeyPress: function onKeyPress(data, e) {
-      e.preventDefault();
       if (typeof this.props.onKeyPress === 'function') {
-        this.props.onKeyPress(data, e.keyCode);
+        this.props.onKeyPress(data, e.keyCode, e);
       }
     },
     render: function render() {
